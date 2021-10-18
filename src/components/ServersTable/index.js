@@ -1,34 +1,15 @@
-import { useEffect, useState, useContext } from "react";
-import GetData from "../../services/hooks/index";
-import { HomeContext } from "../../context/home";
-import { SummaryTable } from "../SummaryTable";
+import { useState, useContext } from "react";
 import "./styles.css";
 
+import { HomeContext } from "../../context/home";
+import { SummaryTable } from "../SummaryTable";
+
 export const ServersTable = () => {
-  // GET dados dos servidores via AXIOS
-  const { state, setState } = useContext(HomeContext);
+  const { serverData } = useContext(HomeContext);
 
-  // Loop Component será mostrado enquanto espera pelos dados da API
-  const loading = [];
-  for (let i = 0; i < 6; i++) {
-    loading.push(<td className="td2">Carregando...</td>);
-  }
-
-  async function callGetData() {
-    const response = await GetData();
-    setState({ response });
-    return;
-  }
-
-  useEffect(() => {
-    callGetData();
-  }, []);
-
-  const data = state.response || [];
-
-  // checked useState ficará responsável por gerenciar checkboxes preenchidos ou vazios
+  // checked useState é responsável por gerenciar checkboxes preenchidos ou vazios
   const [checked, setChecked] = useState(
-    data.length !== 0 ? new Array(data.length).fill(false) : []
+    new Array(serverData.length).fill(false)
   );
 
   // total useState será atualizado a cada checked checkbox e seus dados serão passados para o componente <SummaryTable />
@@ -49,7 +30,7 @@ export const ServersTable = () => {
     const updatedMemoriaTotal = updatedCheckedState.reduce(
       (sum, currentState, index) => {
         if (currentState === true) {
-          return sum + data[index].configuracao.memoryProvisioned;
+          return sum + serverData[index].configuracao.memoryProvisioned;
         }
         return sum;
       },
@@ -60,7 +41,7 @@ export const ServersTable = () => {
     const updatedCPUTotal = updatedCheckedState.reduce(
       (sum, currentState, index) => {
         if (currentState === true) {
-          return sum + data[index].configuracao.cpuProvisioned;
+          return sum + serverData[index].configuracao.cpuProvisioned;
         }
         return sum;
       },
@@ -71,7 +52,7 @@ export const ServersTable = () => {
     const updatedDiscosTotal = updatedCheckedState.reduce(
       (sum, currentState, index) => {
         if (currentState === true) {
-          return sum + data[index].configuracao.totalDiskGB;
+          return sum + serverData[index].configuracao.totalDiskGB;
         }
         return sum;
       },
@@ -84,9 +65,17 @@ export const ServersTable = () => {
       CPUs: updatedCPUTotal,
       discos: updatedDiscosTotal,
     });
-
-    console.log(total);
   };
+
+  // Componente Err em caso de erro na API
+  const Err = [];
+  for (let i = 0; i < 6; i++) {
+    Err.push(
+      <td className="td2" key={`Err-${i}`}>
+        "Erro: sem dados do servidor"
+      </td>
+    );
+  }
 
   return (
     <>
@@ -107,8 +96,8 @@ export const ServersTable = () => {
                 <th className="th4">IP</th>
               </tr>
 
-              {data.length !== 0 ? (
-                data.map((server, index) => (
+              {serverData.length !== 0 ? (
+                serverData.map((server, index) => (
                   <tr key={server.id_vm}>
                     <td className="td2" key={`table-data-1-${server.id_vm}`}>
                       <input
@@ -147,7 +136,7 @@ export const ServersTable = () => {
                   </tr>
                 ))
               ) : (
-                <tr>{loading}</tr>
+                <tr>{Err}</tr>
               )}
             </table>
           </td>
