@@ -1,0 +1,41 @@
+.table,
+.table-inside-table,
+.th1,
+.th2,
+.td1 {
+  border-collapse: collapse;
+  font-family: "Roboto Mono", monospace;
+}
+
+.table {
+  font-family: arial, sans-serif;
+  width: 100%;
+  margin: 1rem;
+  border: 1px solid #dbdbdb;
+}
+
+.table-inside-table {
+  margin: 1rem;
+}
+
+.th1 {
+  background-color: #f0f0f0;
+  border: 1px solid #dbdbdb;
+
+  text-align: left;
+  padding: 0.5rem 1rem;
+  text-align: "center";
+}
+
+.th2 {
+  background-color: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dbdbdb;
+}
+
+.td1 {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-collapse: collapse;
+  border: 1px solid #dbdbdb;
+}

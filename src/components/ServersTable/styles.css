@@ -1,0 +1,33 @@
+.table,
+.table-inside-table,
+.th3,
+.th4,
+.td2 {
+  border-collapse: collapse;
+  font-family: "Roboto Mono", monospace;
+}
+
+.table {
+  font-family: arial, sans-serif;
+  width: 100%;
+  margin: 1rem;
+  border: 1px solid #dbdbdb;
+}
+
+.table-inside-table {
+  margin: 1rem;
+}
+
+.th3,
+.th4 {
+  background-color: #f0f0f0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dbdbdb;
+}
+
+.td2 {
+  width: 19%;
+  text-align: center;
+  border: 1px solid #dbdbdb;
+  padding: 0.5rem 1rem;
+}

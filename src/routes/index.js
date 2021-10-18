@@ -1,10 +1,10 @@
-import Home from '../pages/Home';
+import { Home } from "../pages/Home";
 
-const appRoutes =  [
-    {
-        component: Home,
-        path: '/',
-    }
+const appRoutes = [
+  {
+    component: Home,
+    path: "/",
+  },
 ];
 
-export default appRoutes
+export default appRoutes;
